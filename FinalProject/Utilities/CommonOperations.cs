@@ -2,12 +2,17 @@
 using AventStack.ExtentReports.Model;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
+using FinalProject.BaseActions;
+using FinalProject.PageObject;
 using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -35,11 +40,12 @@ namespace FinalProject.Utilities
         [OneTimeSetUp]
         public void BeforTests()
         {
-            CreatNewFolder(projectDirectory,  "ExtentReport");
+            CreatNewFolder(projectDirectory, "ExtentReport");
             CreatNewFolder(ReportFolderPath, ReportFolderName);
             CreatNewFolder(ScreenshotFolderPath, ScreenshotFolderName);
             ReportMgr.Reporter.InitReport();
             SetupWebDriver();
+            InitPages.Init();
         }
 
         [OneTimeTearDown]
@@ -82,16 +88,25 @@ namespace FinalProject.Utilities
             }
         }
 
-       
+        public 
+
+
 
         [Test]
         public void test1()
         {
- 
-            ReportMgr.Reporter.CreatTest("Test1");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "The test is faild");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "The test wass pass");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Info, "Info about the step");
+
+            ReportMgr.Reporter.CreatTest("ParaBank site, Creat new acount ");
+
+            IWebElement ParaBank = Actions.SearchElementByText(autoPanda.DemoSiteList, "ParaBank");
+            Actions.ScrollToView(ParaBank, "ParaBank"); 
+            Actions.ClickOnElement(ParaBank, "ParaBankButton");
+
+            Actions.UpdateText(paraBank.Username, "shaymizrahi", "Username");
+            Actions.UpdateText(paraBank.Password, "shay123456!", "Password");
+            Actions.ClickOnElement(paraBank.LogInButton, "LogInButton");
+
+
 
         }
 
@@ -105,6 +120,6 @@ namespace FinalProject.Utilities
 
         }
 
-
+      
     }
 }

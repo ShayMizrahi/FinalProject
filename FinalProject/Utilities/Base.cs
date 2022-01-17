@@ -1,16 +1,18 @@
-﻿using AventStack.ExtentReports;
-using AventStack.ExtentReports.Reporter;
+﻿
+using FinalProject.PageObject;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace FinalProject.Utilities
 {
     public class Base
     {
         public static IWebDriver driver;
-       
+        public static IJavaScriptExecutor js;
+
+        public static Automationpanda autoPanda;
+        public static ParaBank paraBank;
+
 
 
     }
