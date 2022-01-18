@@ -6,13 +6,12 @@ using System.Text;
 
 namespace FinalProject.PageObject
 {
-    public class InitPages : Base
+    public class InitPages
     {
         public  static  void Init()
         {
-            autoPanda = new Automationpanda();
-            paraBank = new ParaBank();
-
+            Base.autoPanda = new AutomationPanda();
+            Base.paraBank = new ParaBank();
 
         }
 

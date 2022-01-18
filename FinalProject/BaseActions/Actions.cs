@@ -20,7 +20,7 @@ namespace FinalProject.BaseActions
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll, X position: " + xPosition + " and Y position: " + yPosition);
+                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll, X position: " + xPosition + " and Y position: " + yPosition, e);
             }
 
         }
@@ -39,7 +39,7 @@ namespace FinalProject.BaseActions
 
                 catch (Exception e)
                 {
-                    ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll to element: " + elemName);
+                    ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll to element: " + elemName, e);
                 }
 
 
@@ -55,7 +55,7 @@ namespace FinalProject.BaseActions
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to clicked on element: " + elemName);
+                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to clicked on element: " + elemName, e);
             }
         }
 
@@ -100,7 +100,7 @@ namespace FinalProject.BaseActions
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to update text: " + inputText + " on element: " + elemName);
+                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to update text: " + inputText + " on element: " + elemName, e);
             }
         }
 

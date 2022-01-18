@@ -18,7 +18,7 @@ namespace FinalProject.Utilities.Reporting
         {
             report.Flush();
         }
-
+       
         /// <summary>
         /// 1 Initialize htmlReporter
         /// 2 Set document title
@@ -29,7 +29,8 @@ namespace FinalProject.Utilities.Reporting
         /// </summary>
         public void InitReport()
         {
-            htmlReporter = new ExtentHtmlReporter(CommonOperations.ReportFolderPath + CommonOperations.ReportFolderName + @"\myReport.html");
+            htmlReporter = new ExtentHtmlReporter(CommonOperations.ReportFolderPath 
+                + CommonOperations.ReportFolderName + @"\myReport.html");
             htmlReporter.Config.DocumentTitle = "Automation Panda";
             htmlReporter.Config.ReportName = "Report";
             htmlReporter.Config.Theme = Theme.Dark;
@@ -42,16 +43,34 @@ namespace FinalProject.Utilities.Reporting
             report.AddSystemInfo("Browser", "Chrome");
         }
 
+        
+        /// <summary>
+        /// First method - Write to extent report status and description.
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="Description"></param>
         public void WriteToLog(IReportUtil.Status status, string Description)
         {
             var convert = ConvertToExtentStatus(status);
 
             test.Log(convert, Description);
 
-            if (convert != Status.Fail)
-            {
+        }
+       
+        /// <summary>
+        /// Second method - Write to extent report status, description and exception.
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="Description"></param>
+        /// <param name="e"></param>
+        public void WriteToLog(IReportUtil.Status status, string Description, Exception e)
+        {
+            var convert = ConvertToExtentStatus(status);
 
-            }
+            test.Log(convert, Description);
+            test.Log(Status.Info, "See exception " + e);
+            test.Log(Status.Info, "Sea screenshot ").AddScreenCaptureFromPath
+                    (CommonOperations.copyScreenshot());
 
         }
 
@@ -78,5 +97,6 @@ namespace FinalProject.Utilities.Reporting
 
         }
 
+       
     }
 }

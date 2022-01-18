@@ -22,6 +22,8 @@ namespace FinalProject.Utilities
 
         public void WriteToLog(Status status, string Description);
 
+        public void WriteToLog(Status status, string Description, Exception e);
+
         public void CreatTest(string inputTitle);
 
         }

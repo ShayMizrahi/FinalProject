@@ -8,12 +8,12 @@ using System.Text;
 
 namespace FinalProject.PageObject
 {
-    public class Automationpanda : Base
+    public class AutomationPanda 
     {
 
-        public Automationpanda()
+        public AutomationPanda()
         {
-            PageFactory.InitElements(driver, this);
+            PageFactory.InitElements(CommonOperations.driver, this);
         }
 
 

@@ -4,6 +4,7 @@ using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
 using FinalProject.BaseActions;
 using FinalProject.PageObject;
+using FinalProject.Utilities;
 using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -18,10 +19,12 @@ using System.Threading;
 
 namespace FinalProject.Utilities
 {
-
+   [SetUpFixture]
     public class CommonOperations : Base
     {
+        
 
+        
         // Path to working directory for the current project
         public static string workingDirectory = Environment.CurrentDirectory;
         // Path to secound 'Finalproject' folder of the current project
@@ -32,28 +35,41 @@ namespace FinalProject.Utilities
         // Path to report folder
         public static string ReportFolderPath = projectDirectory + @"\ExtentReport\";
         // Screenshot folder name
-        public static string ScreenshotFolderName = "Screenshot";
+        public static string ScreenshotFolderName = @"Screenshot\";
         // Path to Screenshot folder
         public static string ScreenshotFolderPath = ReportFolderPath + ReportFolderName;
 
 
-        [OneTimeSetUp]
+       [OneTimeSetUp]
         public void BeforTests()
         {
             CreatNewFolder(projectDirectory, "ExtentReport");
             CreatNewFolder(ReportFolderPath, ReportFolderName);
             CreatNewFolder(ScreenshotFolderPath, ScreenshotFolderName);
             ReportMgr.Reporter.InitReport();
-            SetupWebDriver();
-            InitPages.Init();
         }
+
 
         [OneTimeTearDown]
         public void AfterAllTests()
         {
             ReportMgr.Reporter.CloseReport();
-            CloseBrowser();
         }
+
+       
+        public static void BeforEvryTest()
+        {
+            CommonOperations.SetupWebDriver();
+            InitPages.Init();
+        }
+
+        
+        public static  void AfterEveryTest()
+        {
+            CommonOperations.CloseBrowser();
+        }
+
+
 
         /// <summary>
         /// 1 Opens chrome browser
@@ -61,16 +77,17 @@ namespace FinalProject.Utilities
         /// 3 Set Implicit Wait 
         /// 4 Navigate to the web site
         /// </summary>
-        public void SetupWebDriver()
+        public static void SetupWebDriver()
         {
-            ChromeOptions options = new ChromeOptions();
-            options.AddArguments("start-maximized");
-            driver = new ChromeDriver(projectDirectory + @"\Resources\Drivers", options);
+           
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl("https://automationpanda.com/");
+            
+
+
         }
 
-        public void CloseBrowser()
+        public static void CloseBrowser()
         {
             driver.Close();
         }
@@ -80,7 +97,7 @@ namespace FinalProject.Utilities
         /// </summary>
         /// <param name="Path"></param>
         /// <param name="FolderName"></param>
-        public void CreatNewFolder(string Path, string FolderName)
+        public static void CreatNewFolder(string Path, string FolderName)
         {
             if (!Directory.Exists(Path + FolderName))
             {
@@ -88,38 +105,24 @@ namespace FinalProject.Utilities
             }
         }
 
-        public 
-
-
-
-        [Test]
-        public void test1()
+        public static string copyScreenshot()
         {
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile(ScreenshotFolderPath + ScreenshotFolderName
+                    + "Screenshot" + DateTime.Now.ToString().Replace("/", ".").Replace(":", ".") + @".png",
+            ScreenshotImageFormat.Png);
 
-            ReportMgr.Reporter.CreatTest("ParaBank site, Creat new acount ");
-
-            IWebElement ParaBank = Actions.SearchElementByText(autoPanda.DemoSiteList, "ParaBank");
-            Actions.ScrollToView(ParaBank, "ParaBank"); 
-            Actions.ClickOnElement(ParaBank, "ParaBankButton");
-
-            Actions.UpdateText(paraBank.Username, "shaymizrahi", "Username");
-            Actions.UpdateText(paraBank.Password, "shay123456!", "Password");
-            Actions.ClickOnElement(paraBank.LogInButton, "LogInButton");
+            string path = ScreenshotFolderPath + ScreenshotFolderName
+                    + "Screenshot" + DateTime.Now.ToString().Replace("/", ".").Replace(":", ".") + @".png";
 
 
-
+            return path;
         }
 
-        [Test]
-        public void test2()
-        {
-            ReportMgr.Reporter.CreatTest("Test2");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Error, "there was error");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "The test wass pass");
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Info, "Info about the step");
 
-        }
 
-      
     }
+
+
 }
+

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace FinalProject.PageObject
 {
-    public class ParaBank : Base
+    public class ParaBank
     {
         public ParaBank()
         {
-            PageFactory.InitElements(driver, this);
+            PageFactory.InitElements(Base.driver, this);
         }
 
         [FindsBy(How = How.Name, Using = "username")]
