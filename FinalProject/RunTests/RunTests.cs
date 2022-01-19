@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace FinalProject.Utilities
 {
@@ -25,14 +26,7 @@ namespace FinalProject.Utilities
 
         }
 
-        public void BeforEvry()
-        {
-          //  CommonOperations.BeforEvryTest();
-          
-
-
-
-        }
+       
 
         
 
@@ -47,9 +41,13 @@ namespace FinalProject.Utilities
             Actions.ClickOnElement(ParaBank, "ParaBankButton");
 
             ParaBankSite_flow.LogIn("shayMizrahi", "abcd1234");
+            Thread.Sleep(1000);
+            ParaBankSite_flow.Register("Shay", "Mizrahi", "Carmel 5 st.",
+                "Rehovot", "Israel", 765412, 0548013506, 2432, "Shaymizrahi2",
+                "Liat0548013506", "Liat0548013506");
         }
 
-        [Test, Order(2)]
+ //       [Test, Order(2)]
         public void test2()
         {
 
@@ -59,33 +57,10 @@ namespace FinalProject.Utilities
             Actions.ScrollToView(ParaBank, "ParaBank");
             Actions.ClickOnElement(ParaBank, "ParaBankButton");
 
-            ParaBankSite_flow.LogIn("shayMizrahi", "abcd1234");
+            ParaBankSite_flow.LogIn("shay", "1234");
+
         }
 
-        [Test, Order(3)]
-        public void test3()
-        {
-
-            ReportMgr.Reporter.CreatTest("3) ParaBank site, Creat new acount 3");
-
-            IWebElement ParaBank = Actions.SearchElementByText(Base.autoPanda.DemoSiteList, "ParaBank");
-            Actions.ScrollToView(ParaBank, "ParaBank");
-            Actions.ClickOnElement(ParaBank, "ParaBankButton");
-
-            ParaBankSite_flow.LogIn("shayMizrahi", "abcd1234");
-        }
-
-        [Test, Order(4)]
-        public void test4()
-        {
-
-            ReportMgr.Reporter.CreatTest("4) ParaBank site, Creat new acount 4");
-
-            IWebElement ParaBank = Actions.SearchElementByText(Base.autoPanda.DemoSiteList, "ParaBank");
-            Actions.ScrollToView(ParaBank, "ParaBank");
-            Actions.ClickOnElement(ParaBank, "ParaBankButton");
-
-            ParaBankSite_flow.LogIn("shayMizrahi", "abcd1234");
-        }
+       
     }
 }

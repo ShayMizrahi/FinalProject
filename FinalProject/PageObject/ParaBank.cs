@@ -13,6 +13,7 @@ namespace FinalProject.PageObject
         {
             PageFactory.InitElements(Base.driver, this);
         }
+        // LogIn 
 
         [FindsBy(How = How.Name, Using = "username")]
         public IWebElement Username { get; set; }
@@ -22,6 +23,62 @@ namespace FinalProject.PageObject
 
         [FindsBy(How = How.ClassName, Using = "button")]
         public IWebElement LogInButton { get; set; }
+
+        [FindsBy(How = How.ClassName, Using = "title")]
+        public IWebElement Title_OutputResult { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[@id='rightPanel']/p")]
+        public IWebElement Content_OutputResult { get; set; }
+
+
+        // Register
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='loginPanel']/p[2]/a")]
+        public IWebElement RegisterButton { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.firstName")]
+        public IWebElement FirstNameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.lastName")]
+        public IWebElement LastNameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.address.street")]
+        public IWebElement AddressField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.address.city")]
+        public IWebElement CityField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.address.state")]
+        public IWebElement StateField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.address.zipCode")]
+        public IWebElement ZipCodeField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.phoneNumber")]
+        public IWebElement PhoneNumberField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.ssn")]
+        public IWebElement SsnField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.username")]
+        public IWebElement UsernameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "customer.password")]
+        public IWebElement PasswordField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "repeatedPassword")]
+        public IWebElement RepeatedPasswordField { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@class='button' or @value='Register' or @type='submit' ]")]
+        public IWebElement ConfirmButton { get; set; }
+
+
+
+
+
+
+
+
 
 
     }
