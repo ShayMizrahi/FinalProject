@@ -1,42 +1,61 @@
 ﻿using System;
 using System.Collections;
+using FinalProject.Flows;
 using FinalProject.PageObject;
 using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
+using RazorEngine.Compilation.ImpromptuInterface.Optimization;
+using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 
-[assembly:Parallelizable(ParallelScope.Fixtures)]
+//[assembly: Parallelizable(ParallelScope.Fixtures)]
 namespace FinalProject.Utilities
 {
-   
-    public class ConfigurationDrivers 
+    
+    public class ConfigurationDrivers
     {
         private string _browser;
-        
+        public IWebDriver driver;
+        public BaseActions.Actions actions;
+        public AutomationPanda autoPanda;
+        public ParaBank paraBank;
+        public ParaBankSite_flow paraBank_flow;
+        public static int WebDriversCounter= 0;
+        public ExtentReportUtil reporter;
+
+
+
 
         public ConfigurationDrivers(string browser)
         {
             _browser = browser;
- 
+            
         }
-        
+
+
         [SetUp]
-        public void SetUp()
+        public void SetUpWebDriver()
         {
             dynamic capability = GetBrowserOptions(_browser);
 
             if (_browser == "Chrome")
             {
-               
-                Base.driver = new ChromeDriver(CommonOperations.projectDirectory + @"\Resources\Drivers");
+
+                driver = new ChromeDriver(CommonOperations.projectDirectory + @"\Resources\Drivers");
+                WebDriversCounter++;
                 setBrowser(_browser);
+
             }
 
             else if (_browser == "MicrosoftEdge")
             {
-                Base.driver = new EdgeDriver(CommonOperations.projectDirectory + @"\Resources\Drivers");
+                driver = new EdgeDriver(CommonOperations.projectDirectory + @"\Resources\Drivers");
+                WebDriversCounter++;
                 setBrowser(_browser);
             }
 
@@ -44,7 +63,7 @@ namespace FinalProject.Utilities
 
         private dynamic GetBrowserOptions(string browserName)
         {
-            if(browserName == "Chrome")
+            if (browserName == "Chrome")
             {
                 return new ChromeOptions();
             }
@@ -62,112 +81,58 @@ namespace FinalProject.Utilities
             return new ChromeOptions();
         }
 
-        public static void  setBrowser(string BrowserName)
+        public void setBrowser(string BrowserName)
         {
-            try
-            {
-                InitPages.Init();
-                Base.driver.Manage().Window.Maximize();
-                Base.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-                Base.driver.Navigate().GoToUrl("https://automationpanda.com/");
-                
-            //    ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "The browser: " + BrowserName + " was open successfuly");
-            }
-
-            catch(Exception e)
-            {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to open The browser: " + BrowserName , e);
-            }
-           
+                driver.Manage().Window.Maximize();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                driver.Navigate().GoToUrl("https://automationpanda.com/");
+                InitClasses();
         }
-        
+
 
         [TearDown]
-        public void AfterEvery()
+        public void AfterEveryTest()
         {
-            CommonOperations.AfterEveryTest();
+            driver.Close();
+            WebDriversCounter--;
         }
 
-        
+        public void InitClasses()
+        {
+            actions = new BaseActions.Actions(driver);
+            autoPanda = new AutomationPanda(driver);
+            paraBank = new ParaBank(driver);
+            paraBank_flow = new ParaBankSite_flow(driver, paraBank, actions);
+            reporter = new ExtentReportUtil();
+            
+
+
+
+        }
+
+        public void closeExtentReport()
+        {
+            reporter.CloseReport();
+        }
 
        
 
-
-
-
-
-
-
-
-
-
-
-
-
+       
+        
 
 
         /*
-            public static IEnumerable LatestConfigurations
-            {
-                get
+                public void waitUntilEquals(Object obj1, Object obj2)
                 {
-   
-                    //chrome on Windows(#1 platform as of 2019)
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest-1", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest-2", "Windows 10");
-
-                    //chrome on Windows 7(#3 platform as of 2019)
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 7");
-                    yield return new TestFixtureData("Chrome", "latest-1", "Windows 7");
-                    yield return new TestFixtureData("Chrome", "latest-2", "Windows 7");
-
-                    //firefox
-                    yield return new TestFixtureData("Firefox", "latest", "macOS 10.13");
-                    yield return new TestFixtureData("Firefox", "latest-1", "macOS 10.13");
-                    yield return new TestFixtureData("Firefox", "latest-2", "macOS 10.13");
-
-                    //edge
-                    yield return new TestFixtureData("MicrosoftEdge", "latest", "Windows 10");
-                    yield return new TestFixtureData("MicrosoftEdge", "latest-1", "Windows 10");
-                    yield return new TestFixtureData("MicrosoftEdge", "latest-2", "Windows 10");
-
-                    //IE
-                    yield return new TestFixtureData("Internet Explorer", "latest", "Windows 10");
-                    yield return new TestFixtureData("Internet Explorer", "latest", "Windows 7");
-
-                    //Doesn't work
-                    //yield return new TestFixtureData("Internet Explorer", "latest", "Windows 8");       
-                    //yield return new TestFixtureData("Internet Explorer", "10.0", "Windows 7");
+                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10000));
+                    wait.Until(ExpectedConditions.Equals(obj1, obj2));
                 }
-            }
-
-            public static IEnumerable SimpleConfiguration
-            {
-                get
-                {
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-                    yield return new TestFixtureData("Chrome", "latest", "Windows 10");
-
-                }
-            }
         */
     }
-      
-    }
+}
 
-    
+
+
+
+
 

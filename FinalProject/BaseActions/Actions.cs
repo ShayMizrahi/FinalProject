@@ -1,5 +1,6 @@
 ﻿using FinalProject.Utilities;
 using FinalProject.Utilities.Reporting;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -7,25 +8,31 @@ using System.Text;
 
 namespace FinalProject.BaseActions
 {
-    public class Actions : Base
+    public class Actions
     {
-        public static void ScrollTo(int xPosition = 0, int yPosition = 0)
+        public IWebDriver driver;
+        public IJavaScriptExecutor js;
+        public Actions(IWebDriver driver )
+        {
+            this.driver = driver;
+        }
+        public void ScrollTo(int xPosition = 0, int yPosition = 0)
         {
             try
             {
                 js = (IJavaScriptExecutor)driver;
                 var scrollTo = String.Format("window.scrollTo({0}, {1})", xPosition, yPosition);
                 js.ExecuteScript(scrollTo);
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "Wab page was scrolled  successfuly,  X position: " + xPosition + " and Y position: " + yPosition);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "Wab page was scrolled  successfuly,  X position: " + xPosition + " and Y position: " + yPosition);
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll, X position: " + xPosition + " and Y position: " + yPosition, e);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll, X position: " + xPosition + " and Y position: " + yPosition, e, driver);
             }
 
         }
 
-        public static void ScrollToView(IWebElement element, string elemName)
+        public void ScrollToView(IWebElement element, string elemName)
         {
             if (element.Location.Y > 200)
             {
@@ -34,32 +41,32 @@ namespace FinalProject.BaseActions
                     js = (IJavaScriptExecutor)driver;
                     var scrollTo = String.Format("window.scrollTo({0}, {1})", 0, element.Location.Y - 100);
                     js.ExecuteScript(scrollTo);
-                    ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "Wab page scrolled to element: " + elemName + " successfuly");
+                    IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "Wab page scrolled to element: " + elemName + " successfuly");
                 }
 
                 catch (Exception e)
                 {
-                    ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll to element: " + elemName, e);
+                    IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Wab page faild to scroll to element: " + elemName, e, driver);
                 }
 
 
             }
         }
 
-        public static void ClickOnElement(IWebElement elem, string elemName)
+        public  void ClickOnElement(IWebElement elem, string elemName)
         {
             try
             {
                 elem.Click();
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "Element: " + elemName + " was clicked successfuly");
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "Element: " + elemName + " was clicked successfuly");
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to clicked on element: " + elemName, e);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Faild to clicked on element: " + elemName, e, driver);
             }
         }
 
-        public static IWebElement SearchElementByText(IList<IWebElement> listElem, string inputText)
+        public IWebElement SearchElementByText(IList<IWebElement> listElem, string inputText)
         {
 
             string elemText = null;
@@ -77,7 +84,7 @@ namespace FinalProject.BaseActions
 
                     if (elemText.Equals(inputText))
                     {
-                        ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "Selected element: " + elemText + " from list of elements was  found successfuly");
+                        IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "Selected element: " + elemText + " from list of elements was  found successfuly");
                         return elem;
                     }
                 }
@@ -85,23 +92,39 @@ namespace FinalProject.BaseActions
 
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Selected element: " + elemText + " from list of elements was not found");
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Selected element: " + elemText + " from list of elements was not found");
             }
 
            return elem;
         }
 
-        public static void UpdateText(IWebElement elem,string inputText, string elemName)
+        public  void UpdateText(IWebElement elem,string inputText, string elemName)
         {
             try
             {
                 elem.SendKeys(inputText);
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Pass, "Text: " + inputText + " on element: " + elemName  + " was update successfuly");
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "Text: " + inputText + " on element: " + elemName  + " was update successfuly");
             }
             catch (Exception e)
             {
-                ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Fail, "Faild to update text: " + inputText + " on element: " + elemName, e);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Faild to update text: " + inputText + " on element: " + elemName, e, driver);
             }
+
+           
+        }
+
+        public  void Validation(string ActualValue, string ExpectedValue, string Element)
+        {
+            try
+            {
+                Assert.AreEqual(ActualValue, ExpectedValue);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass, "The expected value: " + ExpectedValue + " and actual value: " + ActualValue + " are equal on element: " + Element);
+            }
+            catch(Exception e)
+            {
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "The expected value: " + ExpectedValue + " and actual value: " + ActualValue + " are NOT equal" + " are equal on element: " + Element, e, driver);
+            }
+           
         }
 
     }

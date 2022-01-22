@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FinalProject.Utilities.Reporting
 {
-    public class ReportMgr
+    class IReportMng
     {
-        public static IReportUtil Reporter = new ExtentReportUtil();
+        public static IReportUtil IReporter = new ExtentReportUtil();
     }
 }

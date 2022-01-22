@@ -9,10 +9,13 @@ namespace FinalProject.PageObject
 {
     public class ParaBank
     {
-        public ParaBank()
+        public IWebDriver driver;
+        public ParaBank(IWebDriver driver)
         {
-            PageFactory.InitElements(Base.driver, this);
+            this.driver = driver;
+            PageFactory.InitElements(driver, this);
         }
+
         // LogIn 
 
         [FindsBy(How = How.Name, Using = "username")]
@@ -71,15 +74,6 @@ namespace FinalProject.PageObject
 
         [FindsBy(How = How.XPath, Using = "//*[@class='button' or @value='Register' or @type='submit' ]")]
         public IWebElement ConfirmButton { get; set; }
-
-
-
-
-
-
-
-
-
 
     }
 }

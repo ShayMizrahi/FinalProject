@@ -11,42 +11,54 @@ namespace FinalProject.Flows
 {
     public class ParaBankSite_flow
     {
-        public static void LogIn(string inputUserName, string inputPassword)
+        public IWebDriver driver;
+        public ParaBank paraBank;
+        public Actions actions;
+ 
+
+        public ParaBankSite_flow(IWebDriver driver, ParaBank paraBank, Actions actions)
         {
-            // input userName
-            Actions.UpdateText(Base.paraBank.Username, inputUserName, "Username");
-            // input password
-            Actions.UpdateText(Base.paraBank.Password, inputPassword, "Password");
-            // click on login button
-            Actions.ClickOnElement(Base.paraBank.LogInButton, "LogInButton");
-            // Get output Result
-            string TitleOutput = Base.paraBank.Title_OutputResult.Text;
-            string ContentOutput = Base.paraBank.Content_OutputResult.Text;
-            // write to the log the output result of login
-            ReportMgr.Reporter.WriteToLog(IReportUtil.Status.Info, "The result after typing username and password Title: '" + TitleOutput + "'  Content: '" + ContentOutput + "'");
+            this.driver = driver;
+            this.paraBank = paraBank;
+            this.actions = actions;
         }
 
-        public static void Register(string InputFirstName, string InputLastName, 
+        public  void LogIn(string inputUserName, string inputPassword)
+        {
+            // input userName
+            actions.UpdateText(paraBank.Username, inputUserName, "Username");
+            // input password
+            actions.UpdateText(paraBank.Password, inputPassword, "Password");
+            // click on login button
+            actions.ClickOnElement(paraBank.LogInButton, "LogInButton");
+            // Get output Result
+           string TitleOutput = paraBank.Title_OutputResult.Text;
+           string ContentOutput = paraBank.Content_OutputResult.Text;
+            // write to the log the output result of login
+            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The result after typing username and password Title: '" + TitleOutput + "'  Content: '" + ContentOutput + "'");
+        }
+
+        public  void Register(string InputFirstName, string InputLastName, 
             string InputAddress, string InputCity, string InputState, int InputZipCode, int InputPhoneNumber,
             int InputSsn, string InputUserName, string InputPassword, string InputRepeatedPassword)
         {
             // click on Register Button 
-            Actions.ClickOnElement(Base.paraBank.RegisterButton, "RegisterButton");
+            actions.ClickOnElement(paraBank.RegisterButton, "RegisterButton");
             // Fill the fields
-            Actions.UpdateText(Base.paraBank.FirstNameField, InputFirstName, "FirstNameField");
-            Actions.UpdateText(Base.paraBank.LastNameField, InputLastName, "LastNameField");
-            Actions.UpdateText(Base.paraBank.AddressField, InputAddress, "AddressField");
-            Actions.UpdateText(Base.paraBank.CityField, InputCity, "CityField");
-            Actions.UpdateText(Base.paraBank.StateField, InputState, "StateField");
-            Actions.UpdateText(Base.paraBank.ZipCodeField, InputZipCode.ToString(), "ZipCodeField");
-            Actions.UpdateText(Base.paraBank.PhoneNumberField, InputPhoneNumber.ToString(), "PhoneNumberField");
-            Actions.UpdateText(Base.paraBank.SsnField, InputPhoneNumber.ToString(), "SsnField");
+            actions.UpdateText(paraBank.FirstNameField, InputFirstName, "FirstNameField");
+            actions.UpdateText(paraBank.LastNameField, InputLastName, "LastNameField");
+            actions.UpdateText(paraBank.AddressField, InputAddress, "AddressField");
+            actions.UpdateText(paraBank.CityField, InputCity, "CityField");
+            actions.UpdateText(paraBank.StateField, InputState, "StateField");
+            actions.UpdateText(paraBank.ZipCodeField, InputZipCode.ToString(), "ZipCodeField");
+            actions.UpdateText(paraBank.PhoneNumberField, InputPhoneNumber.ToString(), "PhoneNumberField");
+            actions.UpdateText(paraBank.SsnField, InputPhoneNumber.ToString(), "SsnField");
 
-            Actions.UpdateText(Base.paraBank.UsernameField, InputUserName, "UsernameField");
-            Actions.UpdateText(Base.paraBank.PasswordField, InputPassword, "RepeatedPasswordField");
-            Actions.UpdateText(Base.paraBank.RepeatedPasswordField, InputRepeatedPassword, "RepeatedPasswordField");
+            actions.UpdateText(paraBank.UsernameField, InputUserName, "UsernameField");
+            actions.UpdateText(paraBank.PasswordField, InputPassword, "RepeatedPasswordField");
+            actions.UpdateText(paraBank.RepeatedPasswordField, InputRepeatedPassword, "RepeatedPasswordField");
             // Click on Register button
-            Actions.ClickOnElement(Base.paraBank.ConfirmButton, "ConfirmButton");
+            actions.ClickOnElement(paraBank.ConfirmButton, "ConfirmButton");
         }
 
     }

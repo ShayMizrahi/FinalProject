@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Configuration;
 using AventStack.ExtentReports.Model;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
@@ -10,6 +11,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +21,11 @@ using System.Threading;
 
 namespace FinalProject.Utilities
 {
-   [SetUpFixture]
-    public class CommonOperations : Base
+    [SetUpFixture]
+    public class CommonOperations
     {
         
-
-        
+  
         // Path to working directory for the current project
         public static string workingDirectory = Environment.CurrentDirectory;
         // Path to secound 'Finalproject' folder of the current project
@@ -39,57 +40,31 @@ namespace FinalProject.Utilities
         // Path to Screenshot folder
         public static string ScreenshotFolderPath = ReportFolderPath + ReportFolderName;
 
+        public ConfigurationDrivers config;
 
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public void BeforTests()
         {
+           
             CreatNewFolder(projectDirectory, "ExtentReport");
             CreatNewFolder(ReportFolderPath, ReportFolderName);
             CreatNewFolder(ScreenshotFolderPath, ScreenshotFolderName);
-            ReportMgr.Reporter.InitReport();
+            IReportMng.IReporter.InitReport();
+
+
+
         }
 
 
         [OneTimeTearDown]
         public void AfterAllTests()
         {
-            ReportMgr.Reporter.CloseReport();
-        }
-
-       
-        public static void BeforEvryTest()
-        {
-            CommonOperations.SetupWebDriver();
-            InitPages.Init();
-        }
-
-        
-        public static  void AfterEveryTest()
-        {
-            CommonOperations.CloseBrowser();
-        }
-
-
-
-        /// <summary>
-        /// 1 Opens chrome browser
-        /// 2 Maximizes the web browser window
-        /// 3 Set Implicit Wait 
-        /// 4 Navigate to the web site
-        /// </summary>
-        public static void SetupWebDriver()
-        {
-           
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl("https://automationpanda.com/");
-            
-
-
-        }
-
-        public static void CloseBrowser()
-        {
-            driver.Close();
+            if(ConfigurationDrivers.WebDriversCounter != 0)
+            {
+                Thread.Sleep(50000);
+                
+            }
+            IReportMng.IReporter.CloseReport();
         }
 
         /// <summary>
@@ -105,24 +80,7 @@ namespace FinalProject.Utilities
             }
         }
 
-        public static string copyScreenshot()
-        {
-            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            ss.SaveAsFile(ScreenshotFolderPath + ScreenshotFolderName
-                    + "Screenshot" + DateTime.Now.ToString().Replace("/", ".").Replace(":", ".") + @".png",
-            ScreenshotImageFormat.Png);
-
-            string path = ScreenshotFolderPath + ScreenshotFolderName
-                    + "Screenshot" + DateTime.Now.ToString().Replace("/", ".").Replace(":", ".") + @".png";
-
-
-            return path;
-        }
-
-
-
     }
-
 
 }
 

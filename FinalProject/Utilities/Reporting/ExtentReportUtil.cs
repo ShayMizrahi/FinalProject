@@ -2,21 +2,27 @@
 using AventStack.ExtentReports.Model;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
+using FinalProject.Utilities.Reporting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace FinalProject.Utilities.Reporting
+namespace FinalProject.Utilities
 {
     public class ExtentReportUtil : IReportUtil
     {
         public static ExtentReports report;
         public static ExtentTest test;
         public static ExtentHtmlReporter htmlReporter;
+        public IWebDriver driver;
+        public ConfigurationDrivers config;
 
         public void CloseReport()
         {
-            report.Flush();
+            report.Flush(); 
         }
        
         /// <summary>
@@ -54,7 +60,6 @@ namespace FinalProject.Utilities.Reporting
             var convert = ConvertToExtentStatus(status);
 
             test.Log(convert, Description);
-
         }
        
         /// <summary>
@@ -63,15 +68,16 @@ namespace FinalProject.Utilities.Reporting
         /// <param name="status"></param>
         /// <param name="Description"></param>
         /// <param name="e"></param>
-        public void WriteToLog(IReportUtil.Status status, string Description, Exception e)
+        public void WriteToLog(IReportUtil.Status status, string Description, Exception e, IWebDriver driver)
         {
             var convert = ConvertToExtentStatus(status);
-
+           
             test.Log(convert, Description);
-            test.Log(Status.Info, "See exception " + e);
-            test.Log(Status.Info, "Sea screenshot ").AddScreenCaptureFromPath
-                    (CommonOperations.copyScreenshot());
-
+            test.Log(Status.Info, "See exception " + e); 
+            test.Log(Status.Info, "See exception ", 
+                MediaEntityBuilder.CreateScreenCaptureFromPath(CopyScreenshot(driver)).Build());
+               
+      
         }
 
         public void CreatTest(string inputTitle)
@@ -97,6 +103,17 @@ namespace FinalProject.Utilities.Reporting
 
         }
 
+        public string CopyScreenshot(IWebDriver driver)
+        {
+            string sSpath = CommonOperations.ScreenshotFolderPath + CommonOperations.ScreenshotFolderName;
+            string imageName = "Screenshot" + DateTime.Now.ToString().Replace("/", ".").Replace(":", ".") + @".png";
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile(sSpath + imageName, ScreenshotImageFormat.Png);
+
+            return sSpath + imageName;
+        }
+
        
     }
+
 }

@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +23,7 @@ namespace FinalProject.Utilities
 
         public void WriteToLog(Status status, string Description);
 
-        public void WriteToLog(Status status, string Description, Exception e);
+        public void WriteToLog(Status status, string Description, Exception e, IWebDriver driver);
 
         public void CreatTest(string inputTitle);
 
