@@ -27,14 +27,15 @@ namespace FinalProject.Utilities
         public ParaBankSite_flow paraBank_flow;
         public static int WebDriversCounter= 0;
         public ExtentReportUtil reporter;
-
-
+        public RestfulBooker restfulBooker;
+        public RestfulBookerSite_flow restfulBooker_flow;
+        public Demoblaze demoblaze;
+        public DemoblazeSite_flow demoblaze_flow;
 
 
         public ConfigurationDrivers(string browser)
         {
             _browser = browser;
-            
         }
 
 
@@ -101,10 +102,17 @@ namespace FinalProject.Utilities
         {
             actions = new BaseActions.Actions(driver);
             autoPanda = new AutomationPanda(driver);
+
             paraBank = new ParaBank(driver);
             paraBank_flow = new ParaBankSite_flow(driver, paraBank, actions);
-            reporter = new ExtentReportUtil();
+
+            restfulBooker = new RestfulBooker(driver);
+            restfulBooker_flow = new RestfulBookerSite_flow(driver, restfulBooker, actions);
+
+            demoblaze = new Demoblaze(driver);
+            demoblaze_flow = new DemoblazeSite_flow(driver, demoblaze, actions);
             
+
 
 
 

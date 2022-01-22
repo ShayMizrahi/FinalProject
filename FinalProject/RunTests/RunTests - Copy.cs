@@ -14,64 +14,42 @@ using System.Threading;
 namespace FinalProject.Utilities
 {
 
-
-
-    
-     
-   // [TestFixture("Chrome")]
+    [TestFixture("Chrome")]
     [Parallelizable]
-    [TestFixture("MicrosoftEdge")]
+ //   [TestFixture("MicrosoftEdge")]
     public class RunTests2 : ConfigurationDrivers
     {
 
         public RunTests2(string browser) :base(browser)
         {
-            
-            
+         
         }
 
-   //     [Test, Order(4)]
-        public void test1()
-        {
-
-            IReportMng.IReporter.CreatTest("1) ParaBank site, Creat new acount ");
-            IWebElement ParaBank = actions.SearchElementByText(autoPanda.DemoSiteList, "ParaBank");
-            actions.ScrollToView(ParaBank, "ParaBank");
-            actions.ClickOnElement(ParaBank, "ParaBankButton");
-
-            paraBank_flow.LogIn("shayMizrahi", "abcd1234");
-            Thread.Sleep(1000);
-            paraBank_flow.Register("Shay", "Mizrahi", "Carmel 5 st.",
-                "Rehovot", "Israel", 765412, 0548013506, 2432, "Shaymizrahi2",
-                "Liat0548013506", "Liat0548013506");
-        }
 
         [Test, Order(2)]
         public void test2()
         {
-
-            IReportMng.IReporter.CreatTest("2) ParaBank site, Creat new acount 2");
+            IReportMng.IReporter.CreatTest("Rest fulBooker site, send massege");
 
             IWebElement RestfulBooker = actions.SearchElementByText(autoPanda.DemoSiteList, "Restful Booker");
-            actions.ScrollToView(RestfulBooker, "ParaBank");
+            actions.ScrollToView(RestfulBooker, "RestfulBooker");
             actions.ClickOnElement(RestfulBooker, "ParaBankButton");
-
-            paraBank_flow.LogIn("shay", "1234");
-
+            actions.ScrollToView(restfulBooker.NameField, "NameField");
+            restfulBooker_flow.Rooms_Signup("Shay Mizrahi", "shaymizrahi@gmail.com", "0548013506",
+                "book room", "What is the price for night?");
         }
 
-   //     [Test, Order(4)]
+        [Test, Order(4)]
         public void test4()
         {
 
-            IReportMng.IReporter.CreatTest("2) ParaBank site, Creat new acount 2");
+            IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount 2");
 
             IWebElement RestfulBooker = actions.SearchElementByText(autoPanda.DemoSiteList, "Restful Booker");
             actions.ScrollToView(RestfulBooker, "ParaBank");
             actions.ClickOnElement(RestfulBooker, "ParaBankButton");
 
             paraBank_flow.LogIn("shay", "1234");
-
         }
 
 

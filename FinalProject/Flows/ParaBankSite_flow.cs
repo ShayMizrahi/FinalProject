@@ -25,6 +25,7 @@ namespace FinalProject.Flows
 
         public  void LogIn(string inputUserName, string inputPassword)
         {
+            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "fill-up logIn fields".ToUpper());
             // input userName
             actions.UpdateText(paraBank.Username, inputUserName, "Username");
             // input password
@@ -42,6 +43,7 @@ namespace FinalProject.Flows
             string InputAddress, string InputCity, string InputState, int InputZipCode, int InputPhoneNumber,
             int InputSsn, string InputUserName, string InputPassword, string InputRepeatedPassword)
         {
+            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "fill-up Register fields".ToUpper());
             // click on Register Button 
             actions.ClickOnElement(paraBank.RegisterButton, "RegisterButton");
             // Fill the fields

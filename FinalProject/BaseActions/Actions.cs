@@ -92,7 +92,7 @@ namespace FinalProject.BaseActions
 
             catch (Exception e)
             {
-                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Selected element: " + elemText + " from list of elements was not found");
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail, "Selected element: " + elemText + " from list of elements was not found", e, driver);
             }
 
            return elem;

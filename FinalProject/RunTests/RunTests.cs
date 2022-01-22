@@ -36,10 +36,10 @@ namespace FinalProject.Utilities
             
         }
 
-        [Test, Order(1)]
+       [Test, Order(1)]
         public void test1()
         {
-            IReportMng.IReporter.CreatTest("1) ParaBank site, Creat new acount ");
+            IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount ");
             IWebElement ParaBank = actions.SearchElementByText(autoPanda.DemoSiteList, "ParaBank");
             actions.ScrollToView(ParaBank, "ParaBank");
             actions.ClickOnElement(ParaBank, "ParaBankButton");
@@ -56,18 +56,16 @@ namespace FinalProject.Utilities
             actions.Validation("Liat0548013506", "Liat0548013506", "Password");
         }
 
-    //    [Test, Order(3)]
+        [Test, Order(3)]
         public void test3()
         {
 
-            IReportMng.IReporter.CreatTest("3) ParaBank site, Creat new acount 2");
+            IReportMng.IReporter.CreatTest("Demoblaze site, Select item and add to cart");
 
-            IWebElement RestfulBooker = actions.SearchElementByText(autoPanda.DemoSiteList, "Restful Booker");
-            actions.ScrollToView(RestfulBooker, "ParaBank");
-            actions.ClickOnElement(RestfulBooker, "ParaBankButton");
-
-            paraBank_flow.LogIn("shay", "1234");
-
+            IWebElement Demoblaze = actions.SearchElementByText(demoblaze.DemoSiteList, "Demoblaze");
+            actions.ScrollToView(Demoblaze, "Demoblaze");
+            actions.ClickOnElement(Demoblaze, "DemoblazeButton");
+            demoblaze_flow.SelectCategory();
         }
 
         

@@ -14,11 +14,13 @@ namespace FinalProject.Utilities
 {
     public class ExtentReportUtil : IReportUtil
     {
+        
         public static ExtentReports report;
+        [ThreadStatic]
         public static ExtentTest test;
         public static ExtentHtmlReporter htmlReporter;
         public IWebDriver driver;
-        public ConfigurationDrivers config;
+        
 
         public void CloseReport()
         {
@@ -49,7 +51,7 @@ namespace FinalProject.Utilities
             report.AddSystemInfo("Browser", "Chrome");
         }
 
-        
+
         /// <summary>
         /// First method - Write to extent report status and description.
         /// </summary>
@@ -74,10 +76,9 @@ namespace FinalProject.Utilities
            
             test.Log(convert, Description);
             test.Log(Status.Info, "See exception " + e); 
-            test.Log(Status.Info, "See exception ", 
+            test.Log(Status.Info, "See screenshot ", 
                 MediaEntityBuilder.CreateScreenCaptureFromPath(CopyScreenshot(driver)).Build());
-               
-      
+
         }
 
         public void CreatTest(string inputTitle)
