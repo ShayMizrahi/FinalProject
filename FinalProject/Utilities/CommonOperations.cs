@@ -24,8 +24,7 @@ namespace FinalProject.Utilities
     [SetUpFixture]
     public class CommonOperations
     {
-        
-  
+
         // Path to working directory for the current project
         public static string workingDirectory = Environment.CurrentDirectory;
         // Path to secound 'Finalproject' folder of the current project
@@ -45,25 +44,16 @@ namespace FinalProject.Utilities
         [OneTimeSetUp]
         public void BeforTests()
         {
-           
             CreatNewFolder(projectDirectory, "ExtentReport");
             CreatNewFolder(ReportFolderPath, ReportFolderName);
             CreatNewFolder(ScreenshotFolderPath, ScreenshotFolderName);
             IReportMng.IReporter.InitReport();
-
-
-
         }
 
 
         [OneTimeTearDown]
         public void AfterAllTests()
         {
-            if(ConfigurationDrivers.WebDriversCounter != 0)
-            {
-                Thread.Sleep(50000);
-                
-            }
             IReportMng.IReporter.CloseReport();
         }
 

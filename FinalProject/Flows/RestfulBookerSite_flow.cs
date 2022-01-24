@@ -3,9 +3,6 @@ using FinalProject.PageObject;
 using FinalProject.Utilities;
 using FinalProject.Utilities.Reporting;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FinalProject.Flows
 {
@@ -13,10 +10,10 @@ namespace FinalProject.Flows
     {
         public IWebDriver driver;
         public RestfulBooker restfulBooker;
-        public Actions actions;
+        public BasicActions actions;
  
 
-        public RestfulBookerSite_flow(IWebDriver driver, RestfulBooker restfulBooker, Actions actions)
+        public RestfulBookerSite_flow(IWebDriver driver, RestfulBooker restfulBooker, BasicActions actions)
         {
             this.driver = driver;
             this.restfulBooker = restfulBooker;

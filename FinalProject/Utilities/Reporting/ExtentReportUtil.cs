@@ -14,19 +14,19 @@ namespace FinalProject.Utilities
 {
     public class ExtentReportUtil : IReportUtil
     {
-        
+
         public static ExtentReports report;
         [ThreadStatic]
         public static ExtentTest test;
         public static ExtentHtmlReporter htmlReporter;
         public IWebDriver driver;
-        
+
 
         public void CloseReport()
         {
-            report.Flush(); 
+            report.Flush();
         }
-       
+
         /// <summary>
         /// 1 Initialize htmlReporter
         /// 2 Set document title
@@ -37,7 +37,7 @@ namespace FinalProject.Utilities
         /// </summary>
         public void InitReport()
         {
-            htmlReporter = new ExtentHtmlReporter(CommonOperations.ReportFolderPath 
+            htmlReporter = new ExtentHtmlReporter(CommonOperations.ReportFolderPath
                 + CommonOperations.ReportFolderName + @"\myReport.html");
             htmlReporter.Config.DocumentTitle = "Automation Panda";
             htmlReporter.Config.ReportName = "Report";
@@ -63,7 +63,7 @@ namespace FinalProject.Utilities
 
             test.Log(convert, Description);
         }
-       
+
         /// <summary>
         /// Second method - Write to extent report status, description and exception.
         /// </summary>
@@ -73,10 +73,10 @@ namespace FinalProject.Utilities
         public void WriteToLog(IReportUtil.Status status, string Description, Exception e, IWebDriver driver)
         {
             var convert = ConvertToExtentStatus(status);
-           
+
             test.Log(convert, Description);
-            test.Log(Status.Info, "See exception " + e); 
-            test.Log(Status.Info, "See screenshot ", 
+            test.Log(Status.Info, "See exception " + e);
+            test.Log(Status.Info, "See screenshot ",
                 MediaEntityBuilder.CreateScreenCaptureFromPath(CopyScreenshot(driver)).Build());
 
         }
@@ -114,7 +114,7 @@ namespace FinalProject.Utilities
             return sSpath + imageName;
         }
 
-       
+
     }
 
 }

@@ -24,7 +24,7 @@ namespace FinalProject.PageObject
         [FindsBy(How = How.Name, Using = "password")]
         public IWebElement Password { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "button")]
+        [FindsBy(How = How.XPath, Using = "//*[@class='button' and @value='Log In' and @type='submit' ]")]
         public IWebElement LogInButton { get; set; }
 
         [FindsBy(How = How.ClassName, Using = "title")]
@@ -72,8 +72,13 @@ namespace FinalProject.PageObject
         [FindsBy(How = How.Id, Using = "repeatedPassword")]
         public IWebElement RepeatedPasswordField { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@class='button' or @value='Register' or @type='submit' ]")]
+        [FindsBy(How = How.XPath, Using = "//*[@class='button' and @value='Register' and @type='submit' ]")]
         public IWebElement ConfirmButton { get; set; }
 
+        // log out
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='leftPanel']/ul/li[8]/a")]
+        public IWebElement logOut { get; set; }
+        
     }
 }
