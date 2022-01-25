@@ -62,8 +62,8 @@ namespace FinalProject.Utilities
 
                 // select random category and item
                 mng.demoblaze_flow.SelectCategory();
-                mng.demoblaze_flow.selectRendomItemFromCategory();
-                mng.demoblaze_flow.chackoutAndValidateTheItem(true);
+                mng.demoblaze_flow.SelectRandomItemFromCategory();
+                mng.demoblaze_flow.CheckoutAndValidateTheItem(true);
             }
 
             // go to cart validate the total price and buy the items  

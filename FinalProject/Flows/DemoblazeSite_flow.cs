@@ -58,7 +58,7 @@ namespace FinalProject.Flows
 
         }
 
-        public void selectRendomItemFromCategory()
+        public void SelectRandomItemFromCategory()
         {
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Select rendom item".ToUpper());
 
@@ -79,7 +79,7 @@ namespace FinalProject.Flows
             actions.ClickOnElement(selectedItem, "selectedItem");
         }
 
-        public void chackoutAndValidateTheItem(bool GoHomePageAfterFinish)
+        public void CheckoutAndValidateTheItem(bool GoHomePageAfterFinish)
         {
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate and checkout".ToUpper());
 

@@ -1,23 +1,9 @@
-﻿using AventStack.ExtentReports;
-using AventStack.ExtentReports.Configuration;
-using AventStack.ExtentReports.Model;
-using AventStack.ExtentReports.Reporter;
-using AventStack.ExtentReports.Reporter.Configuration;
-using FinalProject.BaseActions;
-using FinalProject.PageObject;
-using FinalProject.Utilities;
+﻿
 using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
+
 
 namespace FinalProject.Utilities
 {
@@ -27,7 +13,7 @@ namespace FinalProject.Utilities
 
         // Path to working directory for the current project
         public static string workingDirectory = Environment.CurrentDirectory;
-        // Path to secound 'Finalproject' folder of the current project
+        // Path to primary 'Finalproject' folder of the current project
         public static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
         // Report folder name
         public static string ReportFolderName = "Reporting "

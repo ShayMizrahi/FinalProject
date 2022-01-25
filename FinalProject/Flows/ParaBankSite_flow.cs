@@ -42,7 +42,7 @@ namespace FinalProject.Flows
             string TitleOutput = paraBank.Title_OutputResult.Text;
             string ContentOutput = paraBank.Content_OutputResult.Text;
             // write to the log the output result of login
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The result after typing username and password Title: '" + TitleOutput + "'  Content: '" + ContentOutput + "'");
+            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The result after typing username and password. Title: '" + TitleOutput + "'  Content: '" + ContentOutput + "'");
         }
 
         public void Register(string InputFirstName, string InputLastName,

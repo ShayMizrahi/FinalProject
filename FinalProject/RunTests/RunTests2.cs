@@ -1,21 +1,15 @@
-﻿using FinalProject.BaseActions;
-using FinalProject.Flows;
-using FinalProject.PageObject;
-using FinalProject.Utilities;
+﻿
 using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+
 
 namespace FinalProject.Utilities
 {
 
-    //[TestFixture("Chrome")]
-    [TestFixture("MicrosoftEdge")]
+    [TestFixture("Chrome")]
+    //[TestFixture("MicrosoftEdge")]
     public class RunTests2 : ConfigurationDrivers
     {
 
@@ -27,7 +21,7 @@ namespace FinalProject.Utilities
         [Test, Order(2)]
         public void test2()
         {
-            IReportMng.IReporter.CreatTest("Rest fulBooker site, send massege");
+            IReportMng.IReporter.CreatTest("Rest fulBooker site, send messege");
 
             IWebElement RestfulBooker = mng.actions.SearchElement(mng.autoPanda.DemoSiteList, "Restful Booker");
             mng.actions.ScrollToView(RestfulBooker, "RestfulBooker");
@@ -40,7 +34,6 @@ namespace FinalProject.Utilities
         [Test, Order(4)]
         public void test4()
         {
-
             IReportMng.IReporter.CreatTest("ParaBank site, Api testing");
             IWebElement ParaBank = mng.actions.SearchElement(mng.autoPanda.DemoSiteList, "ParaBank");
             mng.actions.ScrollToView(ParaBank, "ParaBank");
@@ -48,7 +41,6 @@ namespace FinalProject.Utilities
             mng.paraBank_flow.Register("Shay", "Mizrahi", "Carmel 5",
                 "Rehovot", "Israel", 765412, 0548013506, 2432);
             mng.paraBankApi_flow.api();
-
         }
 
     }

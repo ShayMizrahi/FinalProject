@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections;
-using FinalProject.BaseActions;
-using FinalProject.Flows;
-using FinalProject.PageObject;
-using FinalProject.Utilities.Reporting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using RazorEngine.Compilation.ImpromptuInterface.Optimization;
-using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
+
 
 [assembly: Parallelizable(ParallelScope.Fixtures)]
 namespace FinalProject.Utilities

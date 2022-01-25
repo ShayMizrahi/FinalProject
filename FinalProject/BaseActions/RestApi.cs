@@ -23,55 +23,66 @@ namespace FinalProject.BaseActions
             this.driver = driver;
         }
 
-        public JObject GetFromeServerJObject(string InputUrl, string InputRequest)
+        public JObject GetFromServerJObject(string InputUrl, string InputRequestPath)
         {
             try
             {
                 Client = new RestClient(InputUrl);
-                Request = new RestRequest(InputRequest, Method.GET);
+                Request = new RestRequest(InputRequestPath, Method.GET);
                 var content = Client.Execute(Request);
                 JObject obs = JObject.Parse(content.Content);
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                    "The Request was send to the server and got back with massage 200 successfuly");
+                    "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with ok 200 successfuly");
                 return obs;
             }
             catch (Exception e)
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
-                    "The Request was send to the server and got back with  error massage", e, driver);
+                    "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with an error massage", e, driver);
             }
             return null;
         }
 
-        public JArray GetFromeServerJArray(string InputUrl, string InputRequest)
+        public JArray GetFromServerJArray(string InputUrl, string InputRequestPath)
         {
             try
             {
                 Client = new RestClient(InputUrl);
-                Request = new RestRequest(InputRequest, Method.GET);
+                Request = new RestRequest(InputRequestPath, Method.GET);
                 var content = Client.Execute(Request);
                 JArray obs = JArray.Parse(content.Content);
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                    "The Request was send to the server and got back with massage 200 successfuly");
+                    "The Request: " + InputRequestPath + "  of type:'GET' was sent to the server and the server responded with ok 200 successfuly");
                 return obs;
             }
             catch (Exception e)
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
-                    "The Request was send to the server and got back with  error massage", e, driver);
+                    "The Request: " + InputRequestPath + "  of type:'GET' was sent to the server and the server responded with an error massage", e, driver);
             }
             return null;
         }
 
-        public JObject SendToServer(string InputUrl, string InputRequest, string InputBody)
+        public IRestResponse SendToServer(string InputUrl, string InputRequestPath, string InputName_Header, string InputValue_Header)
         {
-            Client = new RestClient(InputUrl);
-            Request = new RestRequest(InputRequest, Method.POST);
-            Request.AddJsonBody(InputBody);
-            var content = Client.Execute(Request);
-            JObject obs = JObject.Parse(content.Content);
-
-            return obs;
+            try
+            {
+                Client = new RestClient(InputUrl);
+                Request = new RestRequest(InputRequestPath, Method.POST);
+                Request.AddHeader(InputName_Header, InputValue_Header);
+                //     Request.AddJsonBody(InputBody);
+                var content = Client.Execute(Request);
+                //   JArray obs = JArray.Parse(content.Content);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
+                       "The Request: " + InputRequestPath + "  of type:'POST' was sent to the server and the server responded with ok 200 successfuly");
+                return content;
+            }
+            catch (Exception e)
+            {
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
+                    "The Request: " + InputRequestPath + "  of type:'POST' was sent to the server and the server responded with an error massage", e, driver);
+            }
+            return null;
         }
 
         public JObject DeleteFromServer(string InputUrl, string InputRequest, string InputBody)
