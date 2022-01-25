@@ -38,11 +38,6 @@ namespace FinalProject.Flows
             actions.UpdateText(paraBank.Password, newPassword, "Password");
             // click on login button
             actions.ClickOnElement(paraBank.LogInButton, "LogInButton");
-            // Get output Result
-            string TitleOutput = paraBank.Title_OutputResult.Text;
-            string ContentOutput = paraBank.Content_OutputResult.Text;
-            // write to the log the output result of login
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The result after typing username and password. Title: '" + TitleOutput + "'  Content: '" + ContentOutput + "'");
         }
 
         public void Register(string InputFirstName, string InputLastName,

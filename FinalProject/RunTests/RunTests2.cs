@@ -18,7 +18,7 @@ namespace FinalProject.Utilities
 
         }
 
-        [Test, Order(2)]
+  //      [Test, Order(2)]
         public void test2()
         {
             IReportMng.IReporter.CreatTest("Rest fulBooker site, send messege");

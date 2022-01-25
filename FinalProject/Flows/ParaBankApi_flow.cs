@@ -41,7 +41,7 @@ namespace FinalProject.Flows
             var UpadteCustomer = restSharp.SendToServer(urlPost, "/customers/update/" + idValue +
                 "?firstName=Oron&lastName=Kastel&street=Sirkin 8&city=Givatym&state=Israel&zipCode=75654125&phoneNumber=054857299&ssn=1234&username=" +
                 ParaBankSite_flow.newUserName + "&password=" + ParaBankSite_flow.newPassword + "",
-                "Cookie", "JSESSIONID=BE50574458A6214D4E3321C55C618221");
+                "Cookie", "JSESSIONID=9D05E6F65E0908560AA08CC8B7266270");
 
             // find the customer
             var NewCustomer = restSharp.GetFromServerJObject(url, "/login/" +
@@ -57,8 +57,8 @@ namespace FinalProject.Flows
 
 
             var CreatNewAcount = restSharp.SendToServer(urlPost, "/createAccount?customerId=" + idValue + "&newAccountType=0&fromAccountId=13566",
-                "Cookie", "JSESSIONID=BE50574458A6214D4E3321C55C618221");
-            
+                "Cookie", "JSESSIONID=9D05E6F65E0908560AA08CC8B7266270");
+
 
             var Acounts = restSharp.GetFromServerJArray(url, "/customers/" + idValue + "/accounts");
             var Acount = Acounts[1];
@@ -67,7 +67,7 @@ namespace FinalProject.Flows
 
         }
 
-        public void ValidateCusumerFields(JObject obj, string InputFirstName, string InputLastName, 
+        public void ValidateCusumerFields(JObject obj, string InputFirstName, string InputLastName,
             string InputStreet, string InputCity, string InputState, string InputphoneNumber, string InputSsnValue)
         {
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate customer fields".ToUpper());
@@ -95,21 +95,21 @@ namespace FinalProject.Flows
             actions.Validation(ssnValue, InputSsnValue, "ssn");
         }
 
-        public void ValidateAcountFields(JToken aryj, string InputCustomerid, string InputType, string InputBalance)
+        public void ValidateAcountFields(JToken ary, string InputCustomerid, string InputType, string InputBalance)
         {
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate acount fields".ToUpper());
 
-            var customeridValue = aryj["customerId"].ToString();
+            var customeridValue = ary["customerId"].ToString();
             actions.Validation(customeridValue, InputCustomerid, "customeridValue");
 
-            var typeValue = aryj["type"].ToString();
+            var typeValue = ary["type"].ToString();
             actions.Validation(typeValue, InputType, "typeValue");
 
-            var balanceValue = aryj["balance"].ToString();
+            var balanceValue = ary["balance"].ToString();
             actions.Validation(balanceValue, InputBalance, "balanceValue");
         }
 
-       
-       
+
+
     }
 }
