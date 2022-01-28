@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace FinalProject.Utilities
 {
@@ -19,7 +20,11 @@ namespace FinalProject.Utilities
         [ThreadStatic]
         public static ExtentTest test;
         public static ExtentHtmlReporter htmlReporter;
-        public IWebDriver driver;
+        [ThreadStatic]
+        public static ExtentTest childTest;
+    //    public IWebDriver driver;
+        
+        
 
 
         public void CloseReport()
@@ -61,7 +66,7 @@ namespace FinalProject.Utilities
         {
             var convert = ConvertToExtentStatus(status);
 
-            test.Log(convert, Description);
+            childTest.Log(convert, Description);
         }
 
         /// <summary>
@@ -74,10 +79,9 @@ namespace FinalProject.Utilities
         {
             var convert = ConvertToExtentStatus(status);
 
-            test.Log(convert, Description);
-            test.Log(Status.Info, "See exception " + e);
-            test.Log(Status.Info, "See screenshot ",
-                MediaEntityBuilder.CreateScreenCaptureFromPath(CopyScreenshot(driver)).Build());
+            childTest.Log(convert, Description);
+            childTest.Log(Status.Error, MediaEntityBuilder.CreateScreenCaptureFromPath(CopyScreenshot(driver)).Build());
+            childTest.Log(Status.Error, "See exseption " + e);
 
         }
 
@@ -101,7 +105,6 @@ namespace FinalProject.Utilities
                 default:
                     return Status.Fail;
             }
-
         }
 
         public string CopyScreenshot(IWebDriver driver)
@@ -114,7 +117,11 @@ namespace FinalProject.Utilities
             return sSpath + imageName;
         }
 
-
+        public void CreatNode(string inputTitle)
+        {
+            Thread.Sleep(1000);
+            childTest = test.CreateNode(inputTitle);
+        }
     }
 
 }

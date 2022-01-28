@@ -33,7 +33,7 @@ namespace FinalProject.Flows
 
         public void SelectCategory()
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Select from categories".ToUpper());
+            IReportMng.IReporter.CreatNode("Select random category");
 
             categorySelected = random.Next(1, 4).ToString();
 
@@ -60,7 +60,7 @@ namespace FinalProject.Flows
 
         public void SelectRandomItemFromCategory()
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Select rendom item".ToUpper());
+            IReportMng.IReporter.CreatNode("Select random item");
 
             Thread.Sleep(1000);
             int countOfItems = demoblaze.ItemsFromCategories.Count;
@@ -81,7 +81,7 @@ namespace FinalProject.Flows
 
         public void CheckoutAndValidateTheItem(bool GoHomePageAfterFinish)
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate and checkout".ToUpper());
+            IReportMng.IReporter.CreatNode("Validate and checkout");
 
             string ItemPrice_ItemDesplayText = demoblaze.ItemPrice_ItemDesplay.Text;
             string shay = ItemPrice_ItemDesplayText.Substring(0, ItemPrice_ItemDesplayText.Length - 13).Trim();
@@ -107,6 +107,8 @@ namespace FinalProject.Flows
 
         public void GoToCartValidateTotalPriceAndBuy()
         {
+            IReportMng.IReporter.CreatNode("Go to cart validate total price and buy");
+
             IWebElement cartButton = actions.SearchElement(demoblaze.ListOfTitlePanel, 3);
             actions.ClickOnElement(cartButton, "cartButton");
             
@@ -118,7 +120,7 @@ namespace FinalProject.Flows
 
             Thread.Sleep(1000);
 
-            actions.Validation(demoblaze.totalPrice.Text, totalPrice.ToString(), "totalPrice");
+            actions.Validation(demoblaze.totalPrice.Text, totalPrice.ToString(), "Total price");
 
 
 

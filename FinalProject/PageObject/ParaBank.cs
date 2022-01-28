@@ -75,10 +75,46 @@ namespace FinalProject.PageObject
         [FindsBy(How = How.XPath, Using = "//*[@class='button' and @value='Register' and @type='submit' ]")]
         public IWebElement ConfirmButton { get; set; }
 
-        // log out
+        // Log out
 
         [FindsBy(How = How.XPath, Using = "//*[@id='leftPanel']/ul/li[8]/a")]
         public IWebElement logOut { get; set; }
-        
+
+        // Acount services
+
+        [FindsBy(How = How.CssSelector, Using = "#leftPanel > ul > li")]
+        public IList<IWebElement> AcountServicesList { get; set; }
+
+        // Open new acount
+
+        [FindsBy(How = How.Id, Using = "type")]
+        public IWebElement Type_ComboBox { get; set; }
+
+        [FindsBy(How = How.Id, Using = "fromAccountId")]
+        public IWebElement FromAccount_ComboBox { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//input[@value='Open New Account']")]
+        public IWebElement OpenNewAcountButton { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//div[@ng-if='showResult']/h1")]
+        public IWebElement TitleAfterCreatNewAcount_OutputResult { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@ng-if='showResult']/p[1]")]
+        public IWebElement ContentAfterCreatNewAcount1_OutputResult { get; set; }
+
+        [FindsBy(How = How.Id, Using = "newAccountId")]
+        public IWebElement newAccountId { get; set; }
+
+        // Acounts overview
+
+        [FindsBy(How = How.CssSelector, Using = "#accountTable > tbody > tr")]
+        public IList<IWebElement> selectRow { get; set; }
+
+        [FindsBy(How = How.ClassName, Using = "ng-binding")]
+        public IList<IWebElement> selectCell { get; set; }
+
+
+
+
     }
 }

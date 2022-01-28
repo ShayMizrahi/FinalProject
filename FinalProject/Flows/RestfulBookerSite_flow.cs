@@ -22,7 +22,8 @@ namespace FinalProject.Flows
 
         public  void Rooms_Signup(string inputName, string inputEmail, string ImputPhone, string InputSubject, string InputDescription)
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "fill-up Rooms_Signup fields".ToUpper());
+            IReportMng.IReporter.CreatNode("Fill-up Rooms_Signup fields");
+            
             // input name
             actions.UpdateText(restfulBooker.NameField, inputName, "NameField");
             // input emali

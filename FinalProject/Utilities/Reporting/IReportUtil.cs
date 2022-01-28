@@ -27,7 +27,9 @@ namespace FinalProject.Utilities
 
         public void CreatTest(string inputTitle);
 
-        }
+        public void CreatNode(string inputTitle);
+
+    }
 
     }
 

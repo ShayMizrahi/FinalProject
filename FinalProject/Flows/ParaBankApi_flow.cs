@@ -3,7 +3,7 @@ using FinalProject.Utilities;
 using FinalProject.Utilities.Reporting;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
-
+using RestSharp;
 
 namespace FinalProject.Flows
 {
@@ -14,9 +14,14 @@ namespace FinalProject.Flows
         public string post = "/createAccount?customerId=12345&newAccountType=CHECKING&fromAccountId=500&api_key=shay";
         public string url = "http://parabank.parasoft.com/parabank/services/bank";
         public string urlPost = "https://parabank.parasoft.com/parabank/services_proxy/bank";
+        public string cookieURL = "https://parabank.parasoft.com/parabank/index.htm";
         public string idValue;
         public RestApi restSharp;
         public BasicActions actions;
+
+        public RestClient Client;
+        public RestRequest Request;
+        public IRestResponse Response;
 
         public ParaBankApi_flow(IWebDriver driver, RestApi restSharp, BasicActions actions)
         {
@@ -27,6 +32,14 @@ namespace FinalProject.Flows
 
         public void api()
         {
+            var getCookie = restSharp.GetCookieFromServer(cookieURL);
+            var getValueCookie = getCookie.Substring(getCookie.Length - 32);
+
+
+            logIn("Cookie", getCookie);
+         //   setParamenters("JSESSIONID", getValueCookie);
+           
+
             // find the new customer
             var Customer = restSharp.GetFromServerJObject(url, "/login/" +
                 ParaBankSite_flow.newUserName + "/" + ParaBankSite_flow.newPassword + "?api_key=12345");
@@ -34,14 +47,15 @@ namespace FinalProject.Flows
             // validate the fields of customer
             ValidateCusumerFields(Customer, "Shay", "Mizrahi", "Carmel 5", "Rehovot",
                 "Israel", "548013506", "548013506");
-
+           
             var idValue = Customer["id"].ToString();
+            
 
             // update the fields of customer
             var UpadteCustomer = restSharp.SendToServer(urlPost, "/customers/update/" + idValue +
                 "?firstName=Oron&lastName=Kastel&street=Sirkin 8&city=Givatym&state=Israel&zipCode=75654125&phoneNumber=054857299&ssn=1234&username=" +
                 ParaBankSite_flow.newUserName + "&password=" + ParaBankSite_flow.newPassword + "",
-                "Cookie", "JSESSIONID=BE50574458A6214D4E3321C55C618221");
+                "Cookie", "JSESSIONID=D3D8C48027F98E26116A44E984F204F1");
 
             // find the customer
             var NewCustomer = restSharp.GetFromServerJObject(url, "/login/" +
@@ -57,7 +71,7 @@ namespace FinalProject.Flows
 
 
             var CreatNewAcount = restSharp.SendToServer(urlPost, "/createAccount?customerId=" + idValue + "&newAccountType=0&fromAccountId=13566",
-                "Cookie", "JSESSIONID=BE50574458A6214D4E3321C55C618221");
+                "Cookie", getCookie);
             
 
             var Acounts = restSharp.GetFromServerJArray(url, "/customers/" + idValue + "/accounts");
@@ -70,7 +84,7 @@ namespace FinalProject.Flows
         public void ValidateCusumerFields(JObject obj, string InputFirstName, string InputLastName, 
             string InputStreet, string InputCity, string InputState, string InputphoneNumber, string InputSsnValue)
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate customer fields".ToUpper());
+            IReportMng.IReporter.CreatNode("Validate customer fields");
 
             var firstNameValue = obj["firstName"].ToString();
             actions.Validation(firstNameValue, InputFirstName, "firstNameValue");
@@ -97,7 +111,8 @@ namespace FinalProject.Flows
 
         public void ValidateAcountFields(JToken aryj, string InputCustomerid, string InputType, string InputBalance)
         {
-            IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Validate acount fields".ToUpper());
+            IReportMng.IReporter.CreatNode("Validate acount fields");
+           
 
             var customeridValue = aryj["customerId"].ToString();
             actions.Validation(customeridValue, InputCustomerid, "customeridValue");
@@ -109,7 +124,24 @@ namespace FinalProject.Flows
             actions.Validation(balanceValue, InputBalance, "balanceValue");
         }
 
-       
-       
+        public JObject logIn(string headerName, string headerValue)
+        {
+            IReportMng.IReporter.CreatNode("Log-in  api");
+            var Customer = restSharp.GetFromServerJObject(url, "/login/"+ ParaBankSite_flow.newUserName+ "/"+ ParaBankSite_flow.newPassword, headerName, headerValue);
+
+            return Customer;
+        }
+
+        public JObject setParamenters(string inputName, string InputValue)
+        {
+            IReportMng.IReporter.CreatNode("Set paramenters");
+          
+            var Customer = restSharp.GetFromServerJObject(url, "/setParameter/" + inputName + "/" + InputValue);
+
+            return Customer;
+        }
+
+
+
     }
 }

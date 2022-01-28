@@ -17,6 +17,7 @@ namespace FinalProject.Utilities
         public ExtentReportUtil reporter;
         public ManagePages mng;
 
+
         public ConfigurationDrivers(string browser)
         {
             _browser = browser;
@@ -46,22 +47,21 @@ namespace FinalProject.Utilities
 
         private dynamic GetBrowserOptions(string browserName)
         {
-            if (browserName == "Chrome")
+            switch (browserName)
             {
-                return new ChromeOptions();
+                case "Chrome":
+                    return new ChromeOptions();
+
+                case "Firefox":
+                    return new FirefoxOptions();
+
+                case "MicrosoftEdge":
+                    return new FirefoxOptions();
+                default:
+                    return new ChromeOptions();
+
             }
 
-            if (browserName == "Firefox")
-            {
-                return new FirefoxOptions();
-            }
-
-            if (browserName == "MicrosoftEdge")
-            {
-                return new FirefoxOptions();
-            }
-
-            return new ChromeOptions();
         }
 
         public void setBrowser(string BrowserName)

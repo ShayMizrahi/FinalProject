@@ -18,6 +18,7 @@ namespace FinalProject.Utilities
         public RestfulBookerSite_flow restfulBooker_flow;
         public Demoblaze demoblaze;
         public DemoblazeSite_flow demoblaze_flow;
+        public AutomationPanda_flow autopanda_flow;
 
         public ExtentReportUtil reporter;
 
@@ -31,6 +32,7 @@ namespace FinalProject.Utilities
             actions = new BaseActions.BasicActions(driver);
             restSharp = new RestApi(driver);
             autoPanda = new AutomationPanda(driver);
+            autopanda_flow = new AutomationPanda_flow(actions, driver, autoPanda);
 
             paraBank = new ParaBank(driver);
             paraBank_flow = new ParaBankSite_flow(driver, paraBank, actions);
