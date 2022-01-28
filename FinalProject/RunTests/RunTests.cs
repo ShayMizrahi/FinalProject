@@ -25,7 +25,7 @@ namespace FinalProject.Utilities
 
         }
 
-        [Test, Order(1)]
+    //    [Test, Order(1)]
         public void test1()
         {
             IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount ");
@@ -49,7 +49,7 @@ namespace FinalProject.Utilities
 
         }
 
-        [Test, Order(3)]
+ //       [Test, Order(3)]
         public void test3()
         {
 
