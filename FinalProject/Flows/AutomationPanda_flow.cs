@@ -20,7 +20,7 @@ namespace FinalProject.Flows
         public void OpenSite(string websiteName)
         {
             IReportMng.IReporter.CreatNode("Open webSite " + websiteName);
-            IWebElement site = actions.SearchElement(autoPanda.DemoSiteList, websiteName);
+            IWebElement site = actions.SearchElement(autoPanda.DemoSiteList, websiteName, "web sites");
             actions.ScrollToView(site, websiteName);
             actions.ClickOnElement(site, websiteName);
         }

@@ -100,7 +100,7 @@ namespace FinalProject.BaseActions
         /// <param name="listElem"></param>
         /// <param name="inputText"></param>
         /// <returns></returns>
-        public IWebElement SearchElement(IList<IWebElement> listElem, string inputText)
+        public IWebElement SearchElement(IList<IWebElement> listElem, string inputText, string listName)
         {
 
             string elemText = null;
@@ -118,7 +118,7 @@ namespace FinalProject.BaseActions
                     if (elemText.Equals(inputText))
                     {
                         IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                            "Selected element: " + elemText + " from list of elements was found successfuly");
+                            "The selected element: " + elemText + " from list: " + listName + "  was found successfuly");
                         return elem;
                     }
                 }
@@ -127,13 +127,13 @@ namespace FinalProject.BaseActions
             catch (Exception e)
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
-                    "Selected element: " + elemText + " from list of elements was not found", e, driver);
+                    "The selected element: '" + elemText + "' from list: '" + listName + "' was not found", e, driver);
             }
 
             return elem;
         }
 
-        public IWebElement SearchElement(IList<IWebElement> listElem, int inputIndex)
+        public IWebElement SearchElement(IList<IWebElement> listElem, int inputIndex,  string listName, string elementName)
         {
             IWebElement selectedElement = null;
             try
@@ -143,7 +143,7 @@ namespace FinalProject.BaseActions
                 if (selectedElement != null)
                 {
                     IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                        "Selected element by index: " + inputIndex + " from list of elements was found successfuly");
+                        "The selected element: '" + elementName + "' by index: '" + inputIndex + "' from list: " + listName + " was found successfuly");
                     return selectedElement;
                 }
             }
@@ -152,7 +152,7 @@ namespace FinalProject.BaseActions
             catch (Exception e)
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
-                    "Selected element by index: " + inputIndex + " from list of elements was not found", e, driver);
+                    "The selected element: '" + elementName + "' by index: '" + inputIndex + "' from list: '" + listName + "' was not found", e, driver);
             }
 
             return selectedElement;

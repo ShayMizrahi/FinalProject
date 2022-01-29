@@ -31,9 +31,9 @@ namespace FinalProject.Flows
         }
 
 
-        public void SelectCategory()
+        public void SelectCategory(int itaration)
         {
-            IReportMng.IReporter.CreatNode("Select random category");
+            IReportMng.IReporter.CreatNode("Select random category " + itaration);
 
             categorySelected = random.Next(1, 4).ToString();
 
@@ -52,24 +52,24 @@ namespace FinalProject.Flows
                     break;
             }
 
-            var FindTheSelectedCategory = actions.SearchElement(demoblaze.Categories, categorySelected);
-            actions.ClickOnElement(FindTheSelectedCategory, "FindTheSelectedCategory");
+            var FindTheSelectedCategory = actions.SearchElement(demoblaze.Categories, categorySelected, "Categories");
+            actions.ClickOnElement(FindTheSelectedCategory, categorySelected);
 
 
         }
 
-        public void SelectRandomItemFromCategory()
+        public void SelectRandomItemFromCategory(int itaration)
         {
-            IReportMng.IReporter.CreatNode("Select random item");
+            IReportMng.IReporter.CreatNode("Select random item " + itaration);
 
             Thread.Sleep(1000);
             int countOfItems = demoblaze.ItemsFromCategories.Count;
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The amount of the selected category: '" + categorySelected + "' is: '" + countOfItems + "'");
 
             var rendomNumberOfItem = random.Next(1, countOfItems);
-            selectedItem = actions.SearchElement(demoblaze.ItemsFromCategories, rendomNumberOfItem);
+            selectedItem = actions.SearchElement(demoblaze.ItemsFromCategories, rendomNumberOfItem, "items", demoblaze.ItemsFromCategories[rendomNumberOfItem].Text);
             selectedItemText = selectedItem.Text;
-            selectedItemPrice = actions.SearchElement(demoblaze.PriceOfItems, rendomNumberOfItem);
+            selectedItemPrice = actions.SearchElement(demoblaze.PriceOfItems, rendomNumberOfItem, "price of items", demoblaze.PriceOfItems[rendomNumberOfItem].Text);
             selectedItemPriceText = selectedItemPrice.Text;
             string selectedItemPriceWithoutTheSign = selectedItemPriceText.Substring(1);
             int selectedItemPriceAsInt = Int32.Parse(selectedItemPriceWithoutTheSign);
@@ -79,9 +79,9 @@ namespace FinalProject.Flows
             actions.ClickOnElement(selectedItem, "selectedItem");
         }
 
-        public void CheckoutAndValidateTheItem(bool GoHomePageAfterFinish)
+        public void CheckoutAndValidateTheItem(bool GoHomePageAfterFinish, int itaration)
         {
-            IReportMng.IReporter.CreatNode("Validate and checkout");
+            IReportMng.IReporter.CreatNode("Validate and checkout " + itaration);
 
             string ItemPrice_ItemDesplayText = demoblaze.ItemPrice_ItemDesplay.Text;
             string shay = ItemPrice_ItemDesplayText.Substring(0, ItemPrice_ItemDesplayText.Length - 13).Trim();
@@ -97,7 +97,7 @@ namespace FinalProject.Flows
 
             if (GoHomePageAfterFinish)
             {
-                IWebElement homeButton = actions.SearchElement(demoblaze.ListOfTitlePanel, 0);
+                IWebElement homeButton = actions.SearchElement(demoblaze.ListOfTitlePanel, 0, "main buttons", "home button");
                 actions.ClickOnElement(homeButton, "homeButton");
             }
 
@@ -109,7 +109,7 @@ namespace FinalProject.Flows
         {
             IReportMng.IReporter.CreatNode("Go to cart validate total price and buy");
 
-            IWebElement cartButton = actions.SearchElement(demoblaze.ListOfTitlePanel, 3);
+            IWebElement cartButton = actions.SearchElement(demoblaze.ListOfTitlePanel, 3 , "main buttons", "cart button");
             actions.ClickOnElement(cartButton, "cartButton");
             
             for (int i=0; i< priceOfItems.Count; i ++)

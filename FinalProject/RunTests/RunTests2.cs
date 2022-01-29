@@ -8,7 +8,7 @@ using OpenQA.Selenium;
 namespace FinalProject.Utilities
 {
 
-    [TestFixture("Chrome")]
+    [TestFixture("Firefox")]
   //  [TestFixture("MicrosoftEdge")]
     public class RunTests2 : ConfigurationDrivers
     {

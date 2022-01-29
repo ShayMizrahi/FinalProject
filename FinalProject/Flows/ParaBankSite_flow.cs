@@ -102,7 +102,7 @@ namespace FinalProject.Flows
             {
                 IReportMng.IReporter.CreatNode("Create new acount " + roundIndex);
                 
-                var OpenNewAcount = actions.SearchElement(paraBank.AcountServicesList, "Open New Account");
+                var OpenNewAcount = actions.SearchElement(paraBank.AcountServicesList, "Open New Account", "acount services");
                 actions.ClickOnElement(OpenNewAcount, "OpenNewAcount");
                 actions.SelectFromComboBox(paraBank.Type_ComboBox, InputTypeIndex);
                 actions.SelectFromComboBox(paraBank.FromAccount_ComboBox, InputFromAccountIndex);
@@ -149,7 +149,7 @@ namespace FinalProject.Flows
         {
             IReportMng.IReporter.CreatNode("Checking the amount of acounts that exist");
             
-            var AccountsOverview = actions.SearchElement(paraBank.AcountServicesList, "Accounts Overview");
+            var AccountsOverview = actions.SearchElement(paraBank.AcountServicesList, "Accounts Overview", "AcountServices");
             actions.ClickOnElement(AccountsOverview, "OpenNewAcount");
             Thread.Sleep(1500);
            

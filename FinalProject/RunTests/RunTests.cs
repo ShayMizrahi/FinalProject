@@ -25,7 +25,7 @@ namespace FinalProject.Utilities
 
         }
 
-    //    [Test, Order(1)]
+        [Test, Order(1)]
         public void test1()
         {
             IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount ");
@@ -49,7 +49,7 @@ namespace FinalProject.Utilities
 
         }
 
- //       [Test, Order(3)]
+        [Test, Order(3)]
         public void test3()
         {
 
@@ -61,12 +61,11 @@ namespace FinalProject.Utilities
             for (int i = 0; i < selectNumber; i++)
             {
                 Round++;
-                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "Round: " + Round);
 
                 // select random category and item
-                mng.demoblaze_flow.SelectCategory();
-                mng.demoblaze_flow.SelectRandomItemFromCategory();
-                mng.demoblaze_flow.CheckoutAndValidateTheItem(true);
+                mng.demoblaze_flow.SelectCategory(Round);
+                mng.demoblaze_flow.SelectRandomItemFromCategory(Round);
+                mng.demoblaze_flow.CheckoutAndValidateTheItem(true, Round);
             }
 
             // go to cart validate the total price and buy the items  
