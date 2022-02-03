@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,13 +12,10 @@ namespace FinalProject.Utilities
 
     public class ConfigurationDrivers
     {
-        [ThreadStatic]
-        public static string _browser;
+        private string _browser;
         public IWebDriver driver;
         public ExtentReportUtil reporter;
         public ManagePages mng;
-       
-       
 
 
         public ConfigurationDrivers(string browser)
@@ -47,20 +43,6 @@ namespace FinalProject.Utilities
                 setBrowser(_browser);
             }
 
-            else if (_browser == "Firefox")
-            {
-                    var RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    string LocalPath = Directory.GetParent(RoamingPath).FullName;
-                    string FirefoxPath = LocalPath + @"\Local\Mozilla Firefox\firefox.exe";
-                    FirefoxOptions options = new FirefoxOptions();
-                    options.BrowserExecutableLocation = (FirefoxPath);
-                
-
-                driver = new FirefoxDriver(CommonOperations.projectDirectory + @"\Resources\Drivers", options);
-
-                setBrowser(_browser);
-            }
-
         }
 
         private dynamic GetBrowserOptions(string browserName)
@@ -74,7 +56,7 @@ namespace FinalProject.Utilities
                     return new FirefoxOptions();
 
                 case "MicrosoftEdge":
-                    return new EdgeOptions();
+                    return new FirefoxOptions();
                 default:
                     return new ChromeOptions();
 

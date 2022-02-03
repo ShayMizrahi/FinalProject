@@ -40,10 +40,9 @@ namespace FinalProject.BaseActions
         }
         #endregion
 
-        #region Update/Clear text methods
+        #region Update text methods
         /// <summary>
         /// Input text to element 
-        /// Clear text 
         /// </summary>
         /// <param name="elem"></param>
         /// <param name="inputText"></param>
@@ -63,21 +62,6 @@ namespace FinalProject.BaseActions
             }
 
         }
-
-        public void ClearTextOnElement(IWebElement elem, string elemName)
-        {
-            try
-            {
-                elem.Clear();
-                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                    "Text On element: " + elemName + " was cleared successfuly");
-            }
-            catch (Exception e)
-            {
-                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
-                    "Failed to cleared on element: " + elemName, e, driver);
-            }
-        }
         #endregion
 
         #region Validation methods
@@ -93,14 +77,14 @@ namespace FinalProject.BaseActions
             {
                 Assert.AreEqual(ActualValue, ExpectedValue);
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
-                    "The expected value: [" + ExpectedValue + "] and actual value: [" + ActualValue +
-                    "] are equal for element: " + Element);
+                    "The expected value: " + ExpectedValue + " and actual value: " + ActualValue +
+                    " are equal for element: " + Element);
             }
             catch (Exception e)
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Error,
-                    "The expected value: [" + ExpectedValue + "] and actual value: [" + ActualValue +
-                    "] are NOT equal for element: " + Element, e, driver);
+                    "The expected value: " + ExpectedValue + " and actual value: " + ActualValue +
+                    " are NOT equal for element: " + Element, e, driver);
             }
 
         }
@@ -268,24 +252,5 @@ namespace FinalProject.BaseActions
         }
 
         #endregion
-
-        public bool IsElementExist(IWebElement elem)
-        {
-            try
-            {
-                string isExist = elem.Text;
-                return true;
-            }
-
-            catch (Exception e)
-            {
-
-                return false;
-            }
-
-
-        }
     }
-
-    
 }

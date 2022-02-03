@@ -33,14 +33,12 @@ namespace FinalProject.Flows
         public void api()
         {
             var getCookie = restSharp.GetCookieFromServer(cookieURL);
-            string shay = getCookie.ToString();
-     //       var getValueCookie = getCookie.Substring(getCookie.Length - 32);
+            var getValueCookie = getCookie.Substring(getCookie.Length - 32);
 
 
-            logIn();
-
-            
-
+            logIn("Cookie", getCookie);
+         //   setParamenters("JSESSIONID", getValueCookie);
+           
 
             // find the new customer
             var Customer = restSharp.GetFromServerJObject(url, "/login/" +
@@ -57,7 +55,7 @@ namespace FinalProject.Flows
             var UpadteCustomer = restSharp.SendToServer(urlPost, "/customers/update/" + idValue +
                 "?firstName=Oron&lastName=Kastel&street=Sirkin 8&city=Givatym&state=Israel&zipCode=75654125&phoneNumber=054857299&ssn=1234&username=" +
                 ParaBankSite_flow.newUserName + "&password=" + ParaBankSite_flow.newPassword + "",
-                "Cookie", shay);
+                "Cookie", "JSESSIONID=D3D8C48027F98E26116A44E984F204F1");
 
             // find the customer
             var NewCustomer = restSharp.GetFromServerJObject(url, "/login/" +
@@ -126,11 +124,11 @@ namespace FinalProject.Flows
             actions.Validation(balanceValue, InputBalance, "balanceValue");
         }
 
-        public IRestResponse logIn()
+        public JObject logIn(string headerName, string headerValue)
         {
             IReportMng.IReporter.CreatNode("Log-in  api");
-            var Customer = restSharp.login("https://parabank.parasoft.com/parabank/login.htm", "?username= +ParaBankSite_flow.newUserName + &password=" + ParaBankSite_flow.newPassword);
-            
+            var Customer = restSharp.GetFromServerJObject(url, "/login/"+ ParaBankSite_flow.newUserName+ "/"+ ParaBankSite_flow.newPassword, headerName, headerValue);
+
             return Customer;
         }
 
