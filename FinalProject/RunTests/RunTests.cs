@@ -10,7 +10,7 @@ using Test = AventStack.ExtentReports.Model.Test;
 
 namespace FinalProject.Utilities
 {
-  //  [TestFixture("Chrome")]
+    [TestFixture("Chrome")]
     [TestFixture("Firefox")]
     [TestFixture("MicrosoftEdge")]
     public class RunTests : ConfigurationDrivers
