@@ -77,6 +77,7 @@ namespace FinalProject.Flows
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The selected item is: '" + selectedItem.Text + "'");
             IReportMng.IReporter.WriteToLog(IReportUtil.Status.Info, "The price of the selected item is: '" + selectedItemPrice.Text + "'");
             actions.ClickOnElement(selectedItem, "selectedItem");
+           
         }
 
         public void CheckoutAndValidateTheItem(bool GoHomePageAfterFinish, int itaration)

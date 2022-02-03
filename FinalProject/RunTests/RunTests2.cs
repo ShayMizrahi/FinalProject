@@ -7,9 +7,9 @@ using OpenQA.Selenium;
 
 namespace FinalProject.Utilities
 {
-
+    [TestFixture("Chrome")]
     [TestFixture("Firefox")]
-  //  [TestFixture("MicrosoftEdge")]
+    [TestFixture("MicrosoftEdge")]
     public class RunTests2 : ConfigurationDrivers
     {
 
@@ -18,10 +18,10 @@ namespace FinalProject.Utilities
 
         }
 
-       [Test, Order(2)]
+    //    [Test, Order(2)]
         public void test2()
         {
-            IReportMng.IReporter.CreatTest("Rest fulBooker site, send messege");
+            IReportMng.IReporter.CreatTest("Rest fulBooker site, send messege / Run with: " + ConfigurationDrivers._browser);
             mng.autopanda_flow.OpenSite("Restful Booker");
             mng.actions.ScrollToView(mng.restfulBooker.NameField, "NameField");
             mng.restfulBooker_flow.Rooms_Signup("Shay Mizrahi", "shaymizrahi@gmail.com", "0548013506",
@@ -35,7 +35,7 @@ namespace FinalProject.Utilities
             mng.autopanda_flow.OpenSite("ParaBank");
             mng.paraBank_flow.Register("Shay", "Mizrahi", "Carmel 5",
                 "Rehovot", "Israel", 765412, 0548013506, 2432);
-            mng.paraBank_flow.logOut();
+         //   mng.paraBank_flow.logOut();
             mng.paraBankApi_flow.api();
         }
 

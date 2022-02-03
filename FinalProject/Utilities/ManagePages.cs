@@ -19,6 +19,8 @@ namespace FinalProject.Utilities
         public Demoblaze demoblaze;
         public DemoblazeSite_flow demoblaze_flow;
         public AutomationPanda_flow autopanda_flow;
+        public SwagLabs swagLabs;
+        public SwagLabs_flow swagLabs_flow;
 
         public ExtentReportUtil reporter;
 
@@ -43,6 +45,9 @@ namespace FinalProject.Utilities
 
             demoblaze = new Demoblaze(driver);
             demoblaze_flow = new DemoblazeSite_flow(driver, demoblaze, actions);
+
+            swagLabs = new SwagLabs(driver);
+            swagLabs_flow = new SwagLabs_flow(driver, swagLabs, actions);
 
         }
     }
