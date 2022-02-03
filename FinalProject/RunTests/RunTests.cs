@@ -30,7 +30,7 @@ namespace FinalProject.Utilities
         public void test1()
         {
             IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount  / Run with: " + ConfigurationDrivers._browser);
-            mng.autopanda_flow.OpenSite("ParaBank");
+      //      mng.autopanda_flow.OpenSite("ParaBank");
 
             Thread.Sleep(300);
             mng.paraBank_flow.Register("Shay", "Mizrahi", "Carmel 5 st.",
@@ -55,7 +55,7 @@ namespace FinalProject.Utilities
         {
 
             IReportMng.IReporter.CreatTest("Demoblaze site, Select item and add to cart / Run with: " + ConfigurationDrivers._browser);
-            mng.autopanda_flow.OpenSite("Demoblaze");
+      //      mng.autopanda_flow.OpenSite("Demoblaze");
 
             selectNumber = rendom.Next(1, 7);
 
@@ -77,7 +77,7 @@ namespace FinalProject.Utilities
         public void test4()
         {
             IReportMng.IReporter.CreatTest("Swag Labs site, Select item and add to cart / Run with: " + ConfigurationDrivers._browser);
-            mng.autopanda_flow.OpenSite("Swag Labs");
+   //         mng.autopanda_flow.OpenSite("Swag Labs");
             //checking wrong user name and password
             mng.swagLabs_flow.LogIn("Wrong username and password", "123456");
             //checking valid user name and password
