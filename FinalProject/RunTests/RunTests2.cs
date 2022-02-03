@@ -28,7 +28,7 @@ namespace FinalProject.Utilities
                 "book room", "What is the price for night?");
         }
 
-        [Test, Order(4)]
+    //    [Test, Order(4)]
         public void test4()
         {
             IReportMng.IReporter.CreatTest("ParaBank site, Api testing");
