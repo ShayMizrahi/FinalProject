@@ -109,6 +109,7 @@ namespace FinalProject.Flows
 
                 //     WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 //     wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("fromAccountId']")));
+
                 Thread.Sleep(500);
                 actions.ClickOnElement(paraBank.OpenNewAcountButton, "OpenNewAcountButton");
 
