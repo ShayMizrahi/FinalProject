@@ -8,8 +8,8 @@ using OpenQA.Selenium;
 namespace FinalProject.Utilities
 {
     [TestFixture("Chrome")]
-    [TestFixture("Firefox")]
-    [TestFixture("MicrosoftEdge")]
+ //   [TestFixture("Firefox")]
+  //  [TestFixture("MicrosoftEdge")]
     public class RunTests2 : ConfigurationDrivers
     {
 
@@ -18,7 +18,7 @@ namespace FinalProject.Utilities
 
         }
 
-    //    [Test, Order(2)]
+        [Test, Order(2)]
         public void test2()
         {
             IReportMng.IReporter.CreatTest("Rest fulBooker site, send messege / Run with: " + ConfigurationDrivers._browser);
