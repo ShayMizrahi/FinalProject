@@ -31,6 +31,7 @@ namespace FinalProject.Utilities
 
         public void InitClasses()
         {
+
             actions = new BaseActions.BasicActions(driver);
             restSharp = new RestApi(driver);
             autoPanda = new AutomationPanda(driver);
