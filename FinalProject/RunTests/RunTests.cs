@@ -10,9 +10,9 @@ using Test = AventStack.ExtentReports.Model.Test;
 
 namespace FinalProject.Utilities
 {
-    [TestFixture("Chrome")]
-    [TestFixture("Firefox")]
-    [TestFixture("MicrosoftEdge")]
+ //   [TestFixture("Chrome")]
+ //   [TestFixture("Firefox")]
+//    [TestFixture("MicrosoftEdge")]
     public class RunTests : ConfigurationDrivers
     {
         public Random rendom = new Random();
