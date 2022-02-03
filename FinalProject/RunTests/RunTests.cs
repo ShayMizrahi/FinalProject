@@ -11,8 +11,8 @@ using Test = AventStack.ExtentReports.Model.Test;
 namespace FinalProject.Utilities
 {
     [TestFixture("Chrome")]
-    [TestFixture("Firefox")]
-    [TestFixture("MicrosoftEdge")]
+  //  [TestFixture("Firefox")]
+ //   [TestFixture("MicrosoftEdge")]
     public class RunTests : ConfigurationDrivers
     {
         public Random rendom = new Random();
@@ -26,7 +26,7 @@ namespace FinalProject.Utilities
 
         }
 
-   //     [Test, Order(1)]
+        [Test, Order(1)]
         public void test1()
         {
             IReportMng.IReporter.CreatTest("ParaBank site, Creat new acount  / Run with: " + ConfigurationDrivers._browser);
@@ -50,7 +50,7 @@ namespace FinalProject.Utilities
 
         }
 
-   //    [Test, Order(3)]
+       [Test, Order(3)]
         public void test3()
         {
 
@@ -73,7 +73,7 @@ namespace FinalProject.Utilities
             mng.demoblaze_flow.GoToCartValidateTotalPriceAndBuy();
         }
 
-   //     [Test, Order(5)]
+        [Test, Order(5)]
         public void test4()
         {
             IReportMng.IReporter.CreatTest("Swag Labs site, Select item and add to cart / Run with: " + ConfigurationDrivers._browser);
