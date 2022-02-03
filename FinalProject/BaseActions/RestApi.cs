@@ -39,8 +39,8 @@ namespace FinalProject.BaseActions
                 Client = new RestClient(InputUrl);
               
                 Request = new RestRequest(InputRequestPath, Method.GET);
-               
-                var content = Client.Execute(Request);
+           //     Request.AddCookie("JSESSIONID", "");
+                 var content = Client.Execute(Request);
                 obs = JObject.Parse(content.Content);
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
                     "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with ok 200 successfuly");
@@ -50,6 +50,28 @@ namespace FinalProject.BaseActions
             {
                 IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
                     "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with an error massage: " + obs.ToString() , e, driver);
+            }
+            return null;
+        }
+
+        public IRestResponse login(string InputUrl, string InputRequestPath)
+        {
+            try
+            {
+                Client = new RestClient(InputUrl);
+
+                Request = new RestRequest(InputRequestPath, Method.GET);
+                //     Request.AddCookie("JSESSIONID", "");
+                var content = Client.Execute(Request);
+             //   obs = JObject.Parse(content.Content);
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Pass,
+                    "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with ok 200 successfuly");
+                return content;
+            }
+            catch (Exception e)
+            {
+                IReportMng.IReporter.WriteToLog(IReportUtil.Status.Fail,
+                    "The Request: " + InputRequestPath + " of type:'GET' was sent to the server and the server responded with an error massage: " + obs.ToString(), e, driver);
             }
             return null;
         }
@@ -121,9 +143,12 @@ namespace FinalProject.BaseActions
             {
                 Client = new RestClient(InputUrl);
                 Request = new RestRequest(InputRequestPath, Method.POST);
+                var shay = InputValue_Header.Substring(11);
+                Request.AddCookie("JSESSIONID", shay);
                 Request.AddHeader(InputName_Header, InputValue_Header);
                 Request.AddHeader("Content-Type", "application/json");
                 Request.AddHeader("Accept", "application/json");
+
                 //     Request.AddJsonBody(InputBody);
                 var content = Client.Execute(Request);
                 contentAsString = content.Content;
