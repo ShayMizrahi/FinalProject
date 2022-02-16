@@ -94,7 +94,9 @@ namespace FinalProject.Utilities
         [TearDown]
         public void AfterEveryTest()
         {
+            driver.Close();
             driver.Quit();
+            
         }
 
         public void InitPages()
